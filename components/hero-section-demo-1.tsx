@@ -1,6 +1,5 @@
 "use client";
-
-
+import { useUser } from "@clerk/nextjs";
 import { motion } from "motion/react";
 
 export default function HeroSectionOne() {
@@ -104,6 +103,7 @@ export default function HeroSectionOne() {
 }
 
 const Navbar = () => {
+  const { user } = useUser();
   return (
     <nav className="flex w-full items-center justify-between border-t border-b border-neutral-200 px-4 py-4 dark:border-neutral-800">
       <div className="flex items-center gap-2">
