@@ -9,7 +9,7 @@ export type UsersDetail = {
   email: string;
   credits: number;
 };
-
+ 
 function Provider({
   children,
 }: Readonly<{
