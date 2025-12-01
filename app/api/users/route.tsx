@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
           //@ts-ignore
         })
         .returning(usersTable);
-      return NextResponse.json(result);
+      return NextResponse.json(result[0]?.usersTable);
     }
 
     return NextResponse.json(users[0]);
