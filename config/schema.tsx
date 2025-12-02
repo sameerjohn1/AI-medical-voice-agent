@@ -11,9 +11,11 @@ export const SessionChatTable = pgTable("sessionChatTable", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   sessionId: varchar().notNull(),
   notes: text(),
-  selectedDoctor:json(),
+  // Map to existing DB column "SelectedDoctor"
+  selectedDoctor: json("SelectedDoctor"),
   conversation: json(),
   report: json(),
+  // Use default column name "createdBy" (this exists in your DB)
   createdBy: varchar().references(() => usersTable.email),
   createdOn: varchar(),
 });

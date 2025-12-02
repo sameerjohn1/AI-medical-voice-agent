@@ -2,15 +2,15 @@ import React from "react";
 import { doctorAgent } from "./DoctorAgentCard";
 import Image from "next/image";
 
-type props = {
+type Props = {
   doctorAgent: doctorAgent;
-  setSelectedDoctor: any;
+  setSelectedDoctor: (doctor: doctorAgent) => void;
 };
 
-function SuggestedDoctorCard({ doctorAgent, setSelectedDoctor }: props) {
+function SuggestedDoctorCard({ doctorAgent, setSelectedDoctor }: Props) {
   return (
     <div
-      className="flex flex-col items-center  border rounded-2xl shadow p-5 hover:border-blue-500 cursor-pointer"
+      className="flex flex-col items-center border rounded-2xl shadow p-5 hover:border-blue-500 cursor-pointer"
       onClick={() => setSelectedDoctor(doctorAgent)}
     >
       <Image
