@@ -11,6 +11,7 @@
   "dependencies": {
     "@clerk/nextjs": "^6.35.5",
     "@neondatabase/serverless": "^1.0.2",
+    "@radix-ui/react-dialog": "^1.1.15",
     "@radix-ui/react-slot": "^1.2.4",
     "@tabler/icons-react": "^3.35.0",
     "axios": "^1.13.2",
@@ -21,6 +22,7 @@
     "lucide-react": "^0.555.0",
     "motion": "^12.23.24",
     "next": "16.0.6",
+    "openai": "^6.9.1",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "tailwind-merge": "^3.4.0"
