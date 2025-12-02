@@ -17,11 +17,13 @@ import { ArrowRight, Loader2 } from "lucide-react";
 import axios from "axios";
 import DoctorAgentCard, { doctorAgent } from "./DoctorAgentCard";
 import SuggestedDoctorCard from "./SuggestedDoctorCard";
+import { notExists } from "drizzle-orm";
 
 function AddNewSessionDialog() {
   const [note, setNote] = useState<string>();
   const [loading, setLoading] = useState(false);
-  const [suggestedDoctors, setSuggestedDoctors] = useState<doctorAgent>();
+  const [suggestedDoctors, setSuggestedDoctors] = useState<doctorAgent[]>();
+  const [selectedDoctor, setSelectedDoctor] = useState<doctorAgent>();
 
   const onClickNext = async () => {
     setLoading(true);
@@ -31,6 +33,21 @@ function AddNewSessionDialog() {
 
     console.log(result.data, "data");
     setSuggestedDoctors(result.data);
+    setLoading(false);
+  };
+
+  const onStartConsultation = async () => {
+    setLoading(true);
+    // save all info to database
+    const result = await axios.post("/api/session-chat", {
+      notes: note,
+      selectedDoctor: selectedDoctor,
+    });
+    console.log(result.data);
+    if (result.data?.sessionId) {
+      console.log(result.data.sessionId);
+    }
+
     setLoading(false);
   };
   return (
@@ -57,7 +74,11 @@ function AddNewSessionDialog() {
                 <div className="grid grid-cols-3 gap-3 mt-2">
                   {/* suggested doctors */}
                   {suggestedDoctors.map((doctor, index) => (
-                    <SuggestedDoctorCard doctorAgent={doctor} key={index} />
+                    <SuggestedDoctorCard
+                      doctorAgent={doctor}
+                      key={index}
+                      setSelectedDoctor={() => setSelectedDoctor(doctor)}
+                    />
                   ))}
                 </div>
               </div>
@@ -74,7 +95,10 @@ function AddNewSessionDialog() {
               {loading ? <Loader2 className="animate-spin" /> : <ArrowRight />}
             </Button>
           ) : (
-            <Button>Start Consultation</Button>
+            <Button disabled={loading} onClick={() => onStartConsultation}>
+              Start Consultation
+              {loading ? <Loader2 className="animate-spin" /> : <ArrowRight />}
+            </Button>
           )}
         </DialogFooter>
       </DialogContent>
