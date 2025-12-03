@@ -83,6 +83,7 @@ function AddNewSessionDialog() {
                   doctorAgent={doctor}
                   key={doctor.id}
                   setSelectedDoctor={setSelectedDoctor}
+                  selectedDoctor={selectedDoctor}
                 />
               ))}
             </div>
@@ -98,7 +99,10 @@ function AddNewSessionDialog() {
               {loading ? <Loader2 className="animate-spin" /> : <ArrowRight />}
             </Button>
           ) : (
-            <Button disabled={loading} onClick={() => onStartConsultation()}>
+            <Button
+              disabled={loading || !selectedDoctor}
+              onClick={() => onStartConsultation()}
+            >
               Start Consultation
               {loading ? <Loader2 className="animate-spin" /> : <ArrowRight />}
             </Button>
