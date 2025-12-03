@@ -18,12 +18,15 @@ import axios from "axios";
 import DoctorAgentCard, { doctorAgent } from "./DoctorAgentCard";
 import SuggestedDoctorCard from "./SuggestedDoctorCard";
 import { notExists } from "drizzle-orm";
+import { useRouter } from "next/navigation";
 
 function AddNewSessionDialog() {
   const [note, setNote] = useState<string>();
   const [loading, setLoading] = useState(false);
   const [suggestedDoctors, setSuggestedDoctors] = useState<doctorAgent[]>();
   const [selectedDoctor, setSelectedDoctor] = useState<doctorAgent>();
+
+  const router = useRouter();
 
   const onClickNext = async () => {
     setLoading(true);
@@ -47,7 +50,11 @@ function AddNewSessionDialog() {
       console.log(result.data, "data");
       if (result.data?.sessionId) {
         console.log(result.data.sessionId);
+
+        // route new conversation screen
+        router.push("/dashboard/medical-agent/" + result.data.sessionId);
       }
+      setLoading(false);
     } catch (error) {
       console.error("Error starting consultation:", error);
     } finally {
